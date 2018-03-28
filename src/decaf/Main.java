@@ -35,8 +35,11 @@ class Main {
 		        				type = " IDENTIFIER";
 		        				break;
 						case DecafLexer.CHAR:
-		        				type = "CHARLITERAL";
+		        				type = " CHARLITERAL";
 		        				break;
+                    case DecafLexer.STRINGLITERAL:
+  		        				type = " STRINGLITERAL";
+  		        				break;
 		        			}
 		        			System.out.println (token.getLine() + type + " " + text);
 		        		}
@@ -55,11 +58,10 @@ class Main {
         		DecafParser parser = new DecafParser(tokens);
                 parser.program();
         	}
-        	
+
         } catch(Exception e) {
         	// print the error:
             System.out.println(CLI.infile+" "+e);
         }
     }
 }
-

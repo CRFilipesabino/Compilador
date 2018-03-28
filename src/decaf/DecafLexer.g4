@@ -60,6 +60,48 @@ ESP: '#'|'$'|'&'|'.'|':'|'?'|'@'|'_'|'`'|'|'|'~';
 HEXA : '0x'('0'..'9'|'a'..'f'|'A'..'F')+;
 NPO : [0-9]+;
 CHARLITERAL: '\''(ESC|CHARC|ESP)'\'';
+STRINGLITERAL: '"' (ESC|CHARC|RCURLY|LPARENT|RPARENT|
+LBRACKET|
+RBRACKET|
+PONTOVIR|
+VIRGULA|
+MULT|
+DIV|
+SUB|
+SUM|
+EXP|
+REST|
+EXCL|
+AND|
+OR|
+IGUALDADE|
+DIFERENTE|
+MAIOR|
+MENOR|
+MAIORIG|
+MENORIG|
+INCREMENTO|
+DECREMENTO|
+ATRIBUICAO|
+PG|
+BL|
+CL|
+CS|
+ELSE|
+SE|
+FL|
+INT|
+RT|
+VD|
+VOID|
+PARA|
+BREAK|
+CTN|
+ESP|
+HEXA|
+NPO|
+LCURLY|'\\'|~('"'))*'"';
+
 ID  :
   ('a'..'z' | 'A'..'Z')+;
 
