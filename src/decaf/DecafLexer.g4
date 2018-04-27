@@ -1,4 +1,3 @@
-
 lexer grammar DecafLexer;
 
 @header {
@@ -56,7 +55,7 @@ PARA : 'for';
 BREAK : 'break';
 CTN : 'continue';
 
-ESP: '#'|'$'|'&'|'.'|':'|'?'|'@'|'_'|'`'|'|'|'~';
+ESP: '#'|'$'|'&'|':'|'?'|'@'|'_'|'`'|'|'|'~';
 HEXA : '0x'('0'..'9'|'a'..'f'|'A'..'F')+;
 NPO : [0-9]+;
 CHARLITERAL: '\''(ESC|CHARC|ESP)'\'';
@@ -102,10 +101,9 @@ HEXA|
 NPO|
 LCURLY|'\\'|~('"'))*'"';
 
-ID  :
-  ('a'..'z' | 'A'..'Z')+;
+ ID: [_a-zA-Z][0-9_a-zA-Z]*;
 
-WS_ : (' ' | '\n' ) -> skip;
+WS_ : (' ' | '\n'|'\t') -> skip;
 
 SL_COMMENT : '//' (~'\n')* '\n' -> skip;
 
