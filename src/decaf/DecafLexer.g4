@@ -40,7 +40,7 @@ MENORIG: '<=';
 INCREMENTO: '+=';
 DECREMENTO:'-=';
 ATRIBUICAO:'=';
-PG : 'program';
+PG : 'Program';
 BL : 'boolean';
 CL : 'callout';
 CS : 'class';
@@ -101,8 +101,7 @@ HEXA|
 NPO|
 LCURLY|'\\'|~('"'))*'"';
 
- ID: [_a-zA-Z][0-9_a-zA-Z]*;
-
+ID: ('_'| CHARC)('_'|CHARC|NPO)*;
 WS_ : (' ' | '\n'|'\t') -> skip;
 
 SL_COMMENT : '//' (~'\n')* '\n' -> skip;
