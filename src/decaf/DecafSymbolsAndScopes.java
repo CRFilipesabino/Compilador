@@ -19,55 +19,55 @@ public class DecafSymbolsAndScopes extends DecafParserBaseListener {
     GlobalScope globals;
     Scope currentScope; // define symbols in this scope
 
-   // @Override
+    @Override
     public void enterProgram(DecafParser.ProgramContext ctx) {
         globals = new GlobalScope(null);
         pushScope(globals);
     }
 
-    //@Override
+    @Override
     public void exitProgram(DecafParser.ProgramContext ctx) {
         System.out.println(globals);
     }
 
-    //@Override
+    @Override
     public void enterMethod_decl(DecafParser.Method_declContext ctx) {
         String name = ctx.ID().getText();
         //int typeTokenType = ctx.type().start.getType();
-        //DecafSymbol.Type type = this.getType(typeTokenType);
+       // DecafSymbol.Type type = this.getType(typeTokenType);
 
         // push new scope by making new one that points to enclosing scope
         FunctionSymbol function = new FunctionSymbol(name);
-        // function.setType(type); // Set symbol type
+         //function.setType(type); // Set symbol type
 
         currentScope.define(function); // Define function in current scope
         saveScope(ctx, function);
         pushScope(function);
     }
 
-    //@Override
+    @Override
     public void exitMethod_decl(DecafParser.Method_declContext ctx) {
         popScope();
     }
 
-    //@Override
+    @Override
     public void enterBlock(DecafParser.BlockContext ctx) {
         LocalScope l = new LocalScope(currentScope);
         saveScope(ctx, currentScope);
-         pushScope(l);
+         //pushScope(l);
     }
 
-    //@Override
+    @Override
     public void exitBlock(DecafParser.BlockContext ctx) {
-        popScope();
+        //popScope();
     }
 
-    //@Override
+    @Override
     public void enterField_decl(DecafParser.Field_declContext ctx) {
         defineVar(ctx.type(), ctx.ID().getSymbol());
     }
 
-    //@Override
+    @Override
     public void exitField_decl(DecafParser.Field_declContext ctx) {
         String name = ctx.ID().getSymbol().getText();
         Symbol var = currentScope.resolve(name);
@@ -84,9 +84,208 @@ public class DecafSymbolsAndScopes extends DecafParserBaseListener {
         VariableSymbol var = new VariableSymbol(nameToken.getText());
 
         //DecafSymbol.Type type = this.getType(typeTokenType);
-        // var.setType(type);
+         //var.setType(type);
 
         currentScope.define(var); // Define symbol in current scope
+    }
+ @Override
+    public void enterPar(DecafParser.ParContext ctx) {
+        defineVar(ctx.type(), ctx.ID().getSymbol());
+
+    }
+
+    @Override
+    public void exitPar(DecafParser.ParContext ctx) {
+        String name = ctx.ID().getSymbol().getText();
+        Symbol var = currentScope.resolve(name);
+        if (var == null) {
+            this.error(ctx.ID().getSymbol(), "no such variable: " + name);
+        }
+        if (var instanceof FunctionSymbol) {
+            this.error(ctx.ID().getSymbol(), name + " is not a variable");
+        }
+
+    }
+  @Override
+    public void enterAssign_op(DecafParser.Assign_opContext ctx) {
+
+    }
+
+    @Override
+    public void exitAssign_op(DecafParser.Assign_opContext ctx) {
+    }
+
+    @Override
+    public void enterVar(DecafParser.VarContext ctx) {
+        defineVar(ctx.type(), ctx.ID().getSymbol());
+
+    }
+
+    @Override
+    public void exitVar(DecafParser.VarContext ctx) {
+
+        String name = ctx.ID().getSymbol().getText();
+        Symbol var = currentScope.resolve(name);
+        if (var == null) {
+            this.error(ctx.ID().getSymbol(), "no such variable: " + name);
+        }
+        if (var instanceof FunctionSymbol) {
+            this.error(ctx.ID().getSymbol(), name + " is not a variable");
+        }
+
+    }
+
+    @Override
+    public void enterType(DecafParser.TypeContext ctx) {
+    }
+
+    @Override
+    public void exitType(DecafParser.TypeContext ctx) {
+    }
+
+    @Override
+    public void enterStatement(DecafParser.StatementContext ctx) {
+    }
+
+    @Override
+    public void exitStatement(DecafParser.StatementContext ctx) {
+    }
+
+    @Override
+    public void enterMethod_call(DecafParser.Method_callContext ctx) {
+    }
+
+    @Override
+    public void exitMethod_call(DecafParser.Method_callContext ctx) {
+    }
+
+    @Override
+    public void enterLocation(DecafParser.LocationContext ctx) {
+    }
+
+    @Override
+    public void exitLocation(DecafParser.LocationContext ctx) {
+    }
+
+    @Override
+    public void enterExpr(DecafParser.ExprContext ctx) {
+    }
+
+    @Override
+    public void exitExpr(DecafParser.ExprContext ctx) {
+    }
+
+    @Override
+    public void enterMethod_name(DecafParser.Method_nameContext ctx) {
+    }
+
+    @Override
+    public void exitMethod_name(DecafParser.Method_nameContext ctx) {
+    }
+
+    @Override
+    public void enterCall_arg(DecafParser.Call_argContext ctx) {
+    }
+
+    @Override
+    public void exitCall_arg(DecafParser.Call_argContext ctx) {
+    }
+
+    @Override
+    public void enterBin_op(DecafParser.Bin_opContext ctx) {
+    }
+
+    @Override
+    public void exitBin_op(DecafParser.Bin_opContext ctx) {
+    }
+
+    @Override
+    public void enterAr(DecafParser.ArContext ctx) {
+
+    }
+
+    @Override
+    public void exitAr(DecafParser.ArContext ctx) {
+    }
+
+    @Override
+    public void enterRel(DecafParser.RelContext ctx) {
+    }
+
+    @Override
+    public void exitRel(DecafParser.RelContext ctx) {
+    }
+
+    @Override
+    public void enterEq(DecafParser.EqContext ctx) {
+    }
+
+    @Override
+    public void exitEq(DecafParser.EqContext ctx) {
+    }
+
+    @Override
+    public void enterCond(DecafParser.CondContext ctx) {
+    }
+
+    @Override
+    public void exitCond(DecafParser.CondContext ctx) {
+    }
+
+    @Override
+    public void enterLiteral(DecafParser.LiteralContext ctx) {
+    }
+
+    @Override
+    public void exitLiteral(DecafParser.LiteralContext ctx) {
+    }
+
+    @Override
+    public void enterInt_literal(DecafParser.Int_literalContext ctx) {
+    }
+
+    @Override
+    public void exitInt_literal(DecafParser.Int_literalContext ctx) {
+    }
+
+    @Override
+    public void enterDec(DecafParser.DecContext ctx) {
+    }
+
+    @Override
+    public void exitDec(DecafParser.DecContext ctx) {
+    }
+
+    @Override
+    public void enterHex(DecafParser.HexContext ctx) {
+    }
+
+    @Override
+    public void exitHex(DecafParser.HexContext ctx) {
+    }
+
+    @Override
+    public void enterBool_literal(DecafParser.Bool_literalContext ctx) {
+    }
+
+    @Override
+    public void exitBool_literal(DecafParser.Bool_literalContext ctx) {
+    }
+
+    @Override
+    public void enterChar_literal(DecafParser.Char_literalContext ctx) {
+    }
+
+    @Override
+    public void exitChar_literal(DecafParser.Char_literalContext ctx) {
+    }
+
+    @Override
+    public void enterString_literal(DecafParser.String_literalContext ctx) {
+    }
+
+    @Override
+    public void exitString_literal(DecafParser.String_literalContext ctx) {
     }
 
 
