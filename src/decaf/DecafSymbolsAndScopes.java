@@ -288,8 +288,6 @@ public class DecafSymbolsAndScopes extends DecafParserBaseListener {
     public void exitString_literal(DecafParser.String_literalContext ctx) {
     }
 
-
-  
     /**
      * Método que atuliza o escopo para o atual e imprime o valor
      *
